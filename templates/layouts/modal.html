@@ -1,0 +1,58 @@
+<div class="modal fade" id="CreateProject" tabindex="-1" aria-labelledby="CreateProjectLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="CreateProjectLabel">Add New Project</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-3">
+                <div class="mb-3">
+                    <label for="projectName" class="form-label">Project Name</label>
+                    <input type="text" class="form-control" id="projectName" placeholder="Add project name...">
+                </div>
+                <div class="mb-3">
+                    <label for="formGroupExampleInput" class="form-label">Add Task</label>
+                    <select class="form-select select2" data-toggle="select2" aria-label="Default select example">
+                        <option selected>Add a task...</option>
+                        <option value="1">Landing Page</option>
+                        <option value="2">Admin Dashboards</option>
+                        <option value="3">Admin Pages</option>
+                        <option value="4">UX/UI Design</option>
+                        <option value="5">Client Work</option>
+                        <option value="6">Other Work</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="AssignTask" class="form-label">Assign Task</label>
+                    <select class="select2 form-control select2-multiple" data-toggle="select2" multiple="multiple" data-placeholder="Choose ...">
+                        <optgroup label="UX Designer">
+                            <option value="AD">Andrea</option>
+                            <option value="DL">Danielle</option>
+                            <option value="JH">John</option>
+                        </optgroup>
+                        <optgroup label="Developer">
+                            <option value="ST">Steven</option>
+                            <option value="MC">Michael</option>
+                        </optgroup>
+                        <optgroup label="UI Designer">
+                            <option value="SR">Sharon</option>
+                            <option value="TM">Timothy</option>
+                            <option value="FD">Frederick</option>
+                            <option value="HN">Henry</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create Project</button>
+            </div>
+        </div>
+    </div>
+</div>

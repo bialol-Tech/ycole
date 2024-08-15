@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Authentification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Application de gestion de scolarité, Etablissement scolaire, Enseignement." name="description" />
+    <meta content="Coderthemes" name="author" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/logo-ico.ico' %}">
+
+    <!-- Theme Config Js -->
+    <script src="{% static 'assets/js/hyper-config.js' %}"></script>
+
+    <!-- App css -->
+    <link href="{% static 'assets/css/app-saas.min.css' %}" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- Icons css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <style>
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+<body class="authentication-bg position-relative">
+    <div class="position-absolute start-0 end-0 start-0 bottom-0 w-100 h-100">
+        <svg xmlns='{% static 'assets/images/logo-1.png' %}' width='100%' height='100%' viewBox='0 0 800 800'>
+            <g fill-opacity='0.22'>
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.1);" cx='400' cy='400' r='600' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.2);" cx='400' cy='400' r='500' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.3);" cx='400' cy='400' r='300' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.4);" cx='400' cy='400' r='200' />
+                <circle style="fill: rgba(var(--ct-primary-rgb), 0.5);" cx='400' cy='400' r='100' />
+            </g>
+        </svg>
+    </div>
+    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-4 col-lg-5">
+                    <div class="card">
+
+                        <!-- Logo -->
+                        <div class="card-header py-4 text-center bg-primary" style="background:rgb(227 227 235) !important">
+                            <a href="index.html">
+                                <span><img src="{% static 'assets/images/logo-1.png' %}" alt="logo" height="100"></span>
+                            </a>
+                        </div>
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center w-75 m-auto">
+                                <h4 class="text-dark-50 text-center pb-0 fw-bold">Connexion</h4>
+                                <p class="text-muted mb-4">Entrer votre nom d'utilisateur et mot de passe</p>
+                            </div>
+
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                {{ form.non_field_errors }}
+                                
+                                <div class="mb-3">
+                                    {{ form.username.label_tag }} {{ form.username }} {{ form.username.errors }}
+                                </div>
+
+                                <div class="mb-3">
+                                    {{ form.password.label_tag }}
+                                    <div class="input-group input-group-merge">
+                                         {{ form.password }} {{ form.password.errors }}
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 mb-0 text-center">
+                                    <button class="btn btn-primary" type="submit">Connexion</button>
+                                </div>
+
+                            </form>
+                        </div> <!-- end card-body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="row mt-3">
+                        <div class="col-12 text-center">
+                            <p class="text-muted">Je n'ai pas de compte <a href="pages-register.html" class="text-muted ms-1"><b>Contactez</b></a></p>
+                        </div> <!-- end col -->
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end page -->
+
+    <footer class="footer footer-alt">
+        <script>document.write(new Date().getFullYear())</script> © Ycole
+    </footer>
+    <!-- Vendor js -->
+    <script src="{% static 'assets/js/vendor.min.js' %}"></script>
+
+    <!-- App js -->
+    <script src="{% static 'assets/js/app.min.js' %}"></script>
+
+</body>
+
+
+<!-- Mirrored from coderthemes.com/hyper_2/saas/pages-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 14 Aug 2024 13:39:13 GMT -->
+</html>
