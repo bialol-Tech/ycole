@@ -8,6 +8,12 @@ SEMESTRES = {
         "s2": "SEMESTRE 2",
     }
 
+ETATS_PIECES_FOURNIES={
+    "en cours": "en cours",
+    "acceptée":"Pièce acceptée",
+    "rejetée":"Pièce rejetée"
+}
+
 
 # Create your models here.
 class AnneeAcademique(models.Model):
@@ -136,3 +142,16 @@ class PaiementSemestre(models.Model):
 
     def __str__(self):
         return f"Paiement effectué par {self.inscription.etudiant.first_name} {self.inscription.etudiant.last_name} pour {self.montant_attendu_semestre.classe.libelle} au semestre {self.montant_attendu_semestre.semestre} de l'année académique {self.montant_attendu_semestre.annee_academique.libelle}"
+    
+
+class PieceAFournirPourInscription(models.Model):
+    libelle = models.CharField(max_length=255)
+    annee_academique = models.ForeignKey(AnneeAcademique, on_delete=models.CASCADE)
+    classe = models.ForeignKey(Classe, on_delete=models.CASCADE)
+
+class PieceFourniesPourInscription(models.Model):
+    piece_a_fournir_pour_inscription = models.ForeignKey(PieceAFournirPourInscription, on_delete=models.CASCADE)
+    incription = models.ForeignKey(Inscription, on_delete=models.CASCADE)
+    etat =  models.CharField(max_length=15, choices=ETATS_PIECES_FOURNIES, blank=True)
+    fichier = models.FileField(upload_to="Fichiers/PieceInscription")
+
