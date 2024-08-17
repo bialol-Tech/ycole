@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accueil/', Accueil, name="accueil"),
     path('', include('authentification.urls')),
+    path('inscription/', include('inscription.urls')),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
