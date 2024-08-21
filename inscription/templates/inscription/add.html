@@ -1,0 +1,226 @@
+{% extends "layouts/app.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="header-title mb-3">Inscription d'un étudiant</h4>
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <a href="" id="buttonNouveau"  class="btn btn-primary">Nouveau Etudiant</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="" id="buttonAncien" class="btn btn-success">Ancien Etudiant</a>
+                    </div>
+                </div>
+
+                
+                <form id="nouveau" style="display: none;" method="POST">
+                    {% csrf_token %}
+                    <div id="progressbarwizard">
+
+                        <ul class="nav nav-pills nav-justified form-wizard-header mb-3">
+                            <li class="nav-item">
+                                <a href="#account-2" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                    <i class="mdi mdi-account-circle font-18 align-middle me-1"></i>
+                                    <span class="d-none d-sm-inline">Informations générales</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#profile-tab-2" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                    <i class="mdi mdi-face-man-profile font-18 align-middle me-1"></i>
+                                    <span class="d-none d-sm-inline">Dossier administratif</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#finish-2" data-bs-toggle="tab" data-toggle="tab" class="nav-link rounded-0 py-2">
+                                    <i class="mdi mdi-checkbox-marked-circle-outline font-18 align-middle me-1"></i>
+                                    <span class="d-none d-sm-inline">Finaliser</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content b-0 mb-0">
+
+                            <div id="bar" class="progress mb-3" style="height: 7px;">
+                                <div class="bar progress-bar progress-bar-striped progress-bar-animated bg-success"></div>
+                            </div>
+
+                            <div class="tab-pane" id="account-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                {{etudiant_form.nom.errors}}
+                                                <label class="col-md-3 col-form-label" for="nom">Nom</label>
+                                                {{etudiant_form.nom}} 
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{etudiant_form.prenom.errors}}
+                                                <label class="col-md-3 col-form-label" for="prenom">Prenom</label>
+                                                {{etudiant_form.prenom}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{etudiant_form.date_de_naissance.errors}}
+                                                <label class="col-md-4 col-form-label" for="date_de_naissance">Date de naissance</label>
+                                                {{etudiant_form.date_de_naissance}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{etudiant_form.nationaite.errors}}
+                                                <label class="col-md-12 col-form-label" for="nationalite">Nationalité</label>
+                                                {{etudiant_form.nationalite}}
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                {{etudiant_form.adresse.errors}}
+                                                <label class="col-md-4 col-form-label" for="adresse">Adresse</label>
+                                                {{etudiant_form.adresse}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{etudiant_form.telephone.errors}}
+                                                <label class="col-md-4 col-form-label" for="telephone">Téléphone</label>
+                                                {{etudiant_form.telephone}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{etudiant_form.email.errors}}
+                                                <label class="col-md-4 col-form-label" for="email">Email</label>
+                                                {{etudiant_form.email}}
+                                            </div>
+                                            
+                                            <div class="col-md-4">
+                                                {{etudiant_form.quartier.errors}}
+                                                <label class="col-md-4 col-form-label" for="quartier">Quartier</label>
+                                                {{etudiant_form.quartier}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{etudiant_form.nom_prenom_tuteur.errors}}
+                                                <label class="col-md-12 col-form-label" for="nom_prenom_tuteur">Nom et prenom du tuteur</label>
+                                                {{etudiant_form.nom_prenom_tuteur}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ etudiant_form.telephone_tuteur.errors }}
+                                                <label class="col-md-12 col-form-label" for="telephone_tuteur">Téléphone du tuteur</label>
+                                                {{etudiant_form.telephone_tuteur}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ etudiant_form.email_tuteur.errors }}
+                                                <label class="col-md-12 col-form-label" for="email_tuteur">Email du tuteur</label>
+                                               {{etudiant_form.email_tuteur}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ etudiant_form.profession_tuteur.errors }}
+                                                <label class="col-md-12 col-form-label" for="profession_tuteur">Profession du tuteur</label>
+                                                 {{etudiant_form.profession_tuteur}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-12 col-form-label" for="nationalite_tuteur">Nationalité du tuteur</label>
+                                                 {{etudiant_form.nationalite_tuteur}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ etudiant_form.ville_residence_tuteur.errors }}
+                                                <label class="col-m-12 col-form-label" for="ville_residence_tuteur">Ville de résidence du tuteur</label>
+                                                {{etudiant_form.ville_residence_tuteur}}
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div> <!-- end col -->
+                                </div> <!-- end row -->
+
+                                <ul class="list-inline wizard mb-0">
+                                    <li class="next list-inline-item float-end">
+                                        <a href="javascript:void(0);" class="btn btn-info">Continuer <i class="mdi mdi-arrow-right ms-1"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-pane" id="profile-tab-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="row mb-3">
+                                            <div class="col-md-4">
+                                                <label class="col-md-12 col-form-label" for="name1">Choisir l'année académique</label>
+                                                <select name="annee_academique" class="form-control">
+                                                    {% for annee in annees %}
+                                                        <option value="{{annee.id }}">{{annee.libelle}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="col-md-12 col-form-label" for="name1">Choisir la classe</label>
+                                                
+                                                <select name="classe" id="classe" class="form-control">
+                                                    {% for classe in classes %}
+                                                        <option value="{{classe.id }}">{{classe.libelle}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        
+                                    </div> <!-- end col -->
+                                </div> <!-- end row -->
+                                <ul class="pager wizard mb-0 list-inline">
+                                    <li class="previous list-inline-item">
+                                        <button type="button" class="btn btn-light"><i class="mdi mdi-arrow-left me-1"></i> Revenir</button>
+                                    </li>
+                                    <li class="next list-inline-item float-end">
+                                        <button type="button" class="btn btn-info">Finaliser <i class="mdi mdi-arrow-right ms-1"></i></button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-pane" id="finish-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="text-center">
+                                            <h2 class="mt-0"><i class="mdi mdi-check-all"></i></h2>
+                                            <h3 class="mt-0">Merci !</h3>
+
+                                            <p class="w-75 mb-2 mx-auto">La procédure d'inscription prend fin ici.</p>
+
+                                           
+                                        </div>
+                                    </div> <!-- end col -->
+                                </div> <!-- end row -->
+                                <ul class="pager wizard mb-0 list-inline mt-1">
+                                    <li class="previous list-inline-item">
+                                        <button type="button" class="btn btn-light"><i class="mdi mdi-arrow-left me-1"></i> Revenir</button>
+                                    </li>
+                                    <li class="next list-inline-item float-end">
+                                        <button type="submit" class="btn btn-info">Enregistrer</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div> <!-- tab-content -->
+                    </div> <!-- end #progressbarwizard-->
+                </form>
+
+            </div> <!-- end card-body -->
+        </div> <!-- end card-->
+    </div> <!-- end col -->
+
+   
+</div>
+<script>
+    var buttonNouveau = document.getElementById('buttonNouveau');
+    var formulaire_nouveau = document.getElementById('nouveau');
+
+    buttonNouveau.addEventListener('click', function(event) {
+        event.preventDefault();  // Empêche l'action par défaut, comme la soumission du formulaire
+        if (formulaire_nouveau.style.display === 'none') {
+            formulaire_nouveau.style.display = 'block';
+        } else {
+            formulaire_nouveau.style.display = 'none';
+        }
+    });
+</script>
+
+{% endblock %}
+

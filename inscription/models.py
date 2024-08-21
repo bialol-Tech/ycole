@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
 
+from etablissement.models import Etablissement
+
 SEMESTRES = {
         "s1": "SEMESTRE 1",
         "s2": "SEMESTRE 2",
@@ -26,48 +28,64 @@ class AnneeAcademique(models.Model):
 
     def __str__(self):
         return self.libelle
+    
+    def getAll():
+        return AnneeAcademique.objects.all()
+
 
 class Classe(models.Model):
-    libelle = models.CharField(max_length=30)
+    libelle = models.CharField(max_length=100)  # Nom de la classe
+    etablissement = models.ForeignKey(Etablissement, on_delete=models.CASCADE, related_name='classes')
 
     class Meta:
         verbose_name = "La classe"
         verbose_name_plural = "Les classes"
-        ordering = ["-libelle"]
+        # ordering = ["libelle"]  # Pour trier les classes par leur nom
     
     def __str__(self):
         return self.libelle
+    
+
+    
+# class Libelle(models.Model):
+#     libelle = models.CharField(max_length=30)
+#     classe = models.ForeignKey(Classe, related_name="libelles", on_delete=models.CASCADE)
+
+#     def __str__(self):
+#         return self.libelle
 
 
-class Etudiant(AbstractUser):
+class Etudiant(models.Model):
+
     date_de_naissance = models.DateField()
+    nom = models.CharField(max_length=70)
+    prenom = models.CharField(max_length=70)
+    nationalite = models.CharField(max_length=70, null=True, blank=True)
     adresse = models.CharField(max_length=255, null=True, blank=True)
     telephone = models.CharField(max_length=15, null=True, blank=True)
+    email = models.EmailField(max_length=50, null=True, blank=True)
     quartier = models.CharField(max_length=30)
-    ville = models.CharField(max_length=30)
+    nom_prenom_tuteur = models.CharField(max_length=50, verbose_name="Nom et prenom du tuteur", blank=True, null=True)
+    telephone_tuteur = models.CharField(max_length=20, verbose_name="Telephone du tuteur (Whatsapp)", blank=True, null=True)
+    profession_tuteur = models.CharField(max_length=100, blank=True, null=True)
+    nationalite_tuteur = models.CharField(max_length=70, null=True, blank=True)
+    quartier_tuteur = models.CharField(max_length=100, blank=True, null=True)
+    ville_residence_tuteur = models.CharField(max_length=100, blank=True, null=True)
+    email_tuteur = models.EmailField(max_length=50, null=True, blank=True)
+    etablissement = models.ForeignKey(Etablissement, on_delete=models.CASCADE)
 
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='etudiant_set',  # related_name personnalisé
-        blank=True
-    )
 
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='etudiant_permissions_set',  # related_name personnalisé
-        blank=True
-    )
 
     class Meta:
         verbose_name = "Étudiant(e)"
         verbose_name_plural = "Les étudiants"
-        ordering = ["-first_name", "-last_name"]
+        ordering = ["-nom", "-prenom"]
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.nom} {self.prenom}"
 
 
 
@@ -111,7 +129,7 @@ class Inscription(models.Model):
         unique_together = ["annee_academique", "etudiant", "classe"]
 
     def __str__(self):
-        return f"Inscription de {self.etudiant.last_name} {self.etudiant.first_name} pour {self.classe.libelle} de l'année académique {self.annee_academique.libelle}"
+        return f"Inscription de {self.etudiant.nom} {self.etudiant.prenom} pour {self.classe.libelle} de l'année académique {self.annee_academique.libelle}"
 
 class PaiementInscription(models.Model):
     montant_attendu_inscription = models.ForeignKey(MontantAttenduInscription, on_delete=models.CASCADE)
@@ -149,9 +167,18 @@ class PieceAFournirPourInscription(models.Model):
     annee_academique = models.ForeignKey(AnneeAcademique, on_delete=models.CASCADE)
     classe = models.ForeignKey(Classe, on_delete=models.CASCADE)
 
+    verbose_name = "Pièce à fournir pour l'inscription"
+    verbose_name_plural = "Les pièces à fournir pour les inscriptions"
+    ordering = ["-annee", "-classe"]
+
 class PieceFourniesPourInscription(models.Model):
     piece_a_fournir_pour_inscription = models.ForeignKey(PieceAFournirPourInscription, on_delete=models.CASCADE)
     incription = models.ForeignKey(Inscription, on_delete=models.CASCADE)
     etat =  models.CharField(max_length=15, choices=ETATS_PIECES_FOURNIES, blank=True)
     fichier = models.FileField(upload_to="Fichiers/PieceInscription")
+
+    verbose_name = "Pièce à fournie pour l'inscription"
+    verbose_name_plural = "Les pièces à fournies pour les inscriptions"
+    def __str__(self):
+        return f"{self.piece_a_fournir_pour_inscription.libelle} par {self.inscription.etudiant.last_name} {self.inscription.etudiant.first_name} de {self.inscription.classe.libelle} de l'année académique {self.inscription.annee_academique.libelle}"
 
