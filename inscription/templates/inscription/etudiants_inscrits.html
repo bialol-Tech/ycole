@@ -1,0 +1,78 @@
+{% extends "layouts/app.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">LES ETUDIANTS INSCRITS</h4>   
+                    <form action="{% url "liste-etudiant-inscrits" %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select name="annee_academique" id="" class="form-control">
+                                    <option value="">Sélectionner l'année...</option>
+                                    {% for annee in annees  %}
+                                        <option value="{{ annee.id }}">{{ annee.libelle }}</option>    
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="classe" id="" class="form-control">
+                                    <option value="">Sélectionner la classe...</option>
+                                    {% for classe in classes  %}
+                                        <option value="{{ classe.id }}">{{ classe.libelle }}</option>    
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">Visualiser</button>
+                            </div>
+                        </div>
+                    </form>             
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="state-saving-preview">
+                            <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Matricule</th>
+                                        <th>Nom</th>
+                                        <th>Prenom</th>
+                                        <th>Date de naissance</th>
+                                        <th>Sexe</th>
+                                        <th>Teléphone</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% if etudiants %}
+                                        {% for etudiant in etudiants %}
+                                            <tr>
+                                                <td>{{ etudiant.matricule}}</td>
+                                                <td>{{ etudiant.nom}} {{ etudiant.prenom}}</td>
+                                                <td>Edinburgh</td>
+                                                <td>61</td>
+                                                <td>2011/04/25</td>
+                                                <td>$320,800</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                  
+                                </tbody>
+                            </table>
+                        </div> <!-- end preview-->
+
+                        
+                    </div> <!-- end tab-content-->
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div> <!-- end row-->
+
+
+{% endblock %}
+

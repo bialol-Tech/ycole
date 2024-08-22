@@ -70,3 +70,27 @@ def inscrireEtudiant(request):
         'annees': annees,
     })
 
+
+
+def listeEtudiantsInscripts(request):
+    annees = AnneeAcademique.objects.all()
+    classes = Classe.objects.all()
+    context = {}
+    context['annees'] = annees
+    context['classes'] = classes
+
+    if request.method == 'POST':
+        annee_academique_id = request.POST.get('annee_academique')
+        classe_id = request.POST.get('classe')
+
+        etudiants = Inscription.get_etudiants_inscrits(annee_academique_id, classe_id)
+        context['etudiants'] = etudiants
+        print(etudiants)
+        
+        return  render(request,'inscription/etudiants_inscrits.html', context)
+    else:
+        return render(request,'inscription/etudiants_inscrits.html', context)
+
+
+def exportReleveNote(request):
+    return  render(request,'inscription/releves_note.html')

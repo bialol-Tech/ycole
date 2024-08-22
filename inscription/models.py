@@ -1,4 +1,5 @@
 from typing import Any
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator
@@ -73,7 +74,7 @@ class Etudiant(models.Model):
     ville_residence_tuteur = models.CharField(max_length=100, blank=True, null=True)
     email_tuteur = models.EmailField(max_length=50, null=True, blank=True)
     etablissement = models.ForeignKey(Etablissement, on_delete=models.CASCADE)
-
+    matricule = models.CharField(max_length=20, unique=True, editable=False)
 
 
     class Meta:
@@ -83,6 +84,15 @@ class Etudiant(models.Model):
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        if not self.matricule:
+            self.matricule = self.generate_matricule()
+        super().save(*args, **kwargs)
+
+    def generate_matricule(self):
+        # Par exemple, on pourrait utiliser une combinaison de l'année en cours et d'un UUID
+        return f"{self.date_de_naissance.year}{uuid.uuid4().hex[:6].upper()}"
 
     def __str__(self):
         return f"{self.nom} {self.prenom}"
@@ -130,6 +140,11 @@ class Inscription(models.Model):
 
     def __str__(self):
         return f"Inscription de {self.etudiant.nom} {self.etudiant.prenom} pour {self.classe.libelle} de l'année académique {self.annee_academique.libelle}"
+
+    @staticmethod
+    def get_etudiants_inscrits(annee_academique_id, classe_id):
+        return Etudiant.objects.filter(inscription__annee_academique_id=annee_academique_id,
+                                       inscription__classe_id=classe_id)
 
 class PaiementInscription(models.Model):
     montant_attendu_inscription = models.ForeignKey(MontantAttenduInscription, on_delete=models.CASCADE)
