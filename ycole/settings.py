@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authentification',
     'emploidutemps',
     'etablissement',
+    'note',
 ]
 
 MIDDLEWARE = [
