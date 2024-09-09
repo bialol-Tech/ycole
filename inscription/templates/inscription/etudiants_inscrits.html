@@ -31,6 +31,7 @@
                                 <button type="submit" class="btn btn-primary">Visualiser</button>
                             </div>
                         </div>
+                        <br>
                     </form>             
                     
                     <div class="tab-content">
@@ -40,10 +41,17 @@
                                     <tr>
                                         <th>Matricule</th>
                                         <th>Nom</th>
-                                        <th>Prenom</th>
-                                        <th>Date de naissance</th>
-                                        <th>Sexe</th>
+                                        <th>Nationalité</th>
+                                        <th>Adresse</th>
+                                        <th>Email</th>
                                         <th>Teléphone</th>
+                                        <th>Quartier</th>
+                                        <th>Nom du tuteur</th>
+                                        <th>Téléphone</th>
+                                        <th>Profession</th>
+                                        <th>Email</th>
+                                        <th>Certificat de scolarité</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
 
@@ -53,10 +61,19 @@
                                             <tr>
                                                 <td>{{ etudiant.matricule}}</td>
                                                 <td>{{ etudiant.nom}} {{ etudiant.prenom}}</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
+                                                <td>{{etudiant.nationalite}}</td>
+                                                <td>{{etudiant.adresse}}</td>
+                                                <td>{{etudiant.email}}</td>
+                                                <td>{{etudiant.telephone}}</td>
+                                                <td>{{etudiant.quartier}}</td>
+                                                <td>{{etudiant.nom_prenom_tuteur}}</td>
+                                                <td>{{etudiant.telephone_tuteur}}</td>
+                                                <td>{{etudiant.profession_tuteur}}</td>
+                                                <td>{{etudiant.email_tuteur}}</td>
+                                                <td><a href="/inscription/certificat-scolarite/" target="_blank" ><i class=" uil-file-download" style="font-size: 24px;"></i></a></td>
+                                                <td>
+                                                    <a href=""><i class="fa fa-pencil"></i></a>
+                                                </td>
                                             </tr>
                                         {% endfor %}
                                     {% endif %}

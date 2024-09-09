@@ -3,44 +3,121 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="header-title">LES ETUDIANTS INSCRITS</h4>                
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="header-title">GENERER VOTRE RELEVE DE NOTE</h4>     
+                <form action="{% url "exporter-releve-note-inscrit" %}" method="post">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-md-4">
-                            <select name="annee_academique" id="" class="form-control">
+                            <select name="annee_academique" id="annee-academique-select" class="form-control">
                                 <option value="">Sélectionner l'année...</option>
+                                {% for annee in annees %}
+                                    <option value="{{ annee.id }}">{{ annee.libelle }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <select name="annee_academique" id="" class="form-control">
+                            <select name="classe" id="classe-select" class="form-control">
                                 <option value="">Sélectionner la classe...</option>
+                                {% for classe in classes %}
+                                    <option value="{{ classe.id }}">{{ classe.libelle }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <select name="annee_academique" id="" class="form-control">
-                                <option value="">Sélectionner l'unité...</option>
+                            <select name="semestre" id="semestre-select" class="form-control">
+                                <option value="">Sélectionner le semestre...</option>
+                                {% for semestre in semestres %}
+                                    <option value="{{ semestre.id }}">{{ semestre.nom }}</option>
+                                {% endfor %}
                             </select>
                         </div>
+                        
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-md-4">
-                            <select name="annee_academique" id="" class="form-control">
+                            <select name="unite" id="unite-select" class="form-control">
+                                <option value="">Sélectionner l'unité...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select name="matiere" id="matiere-select" class="form-control">
                                 <option value="">Sélectionner la matière...</option>
                             </select>
                         </div>
                         <div class="col-md-3">
                             <button type="submit" class="btn btn-success">Générer le fichier excel</button>
                         </div>
-                    </div>                  
-                </div> <!-- end card body-->
-            </div> <!-- end card -->
-        </div><!-- end col-->
-    </div> <!-- end row-->
+                    </div>       
+                </form>           
+                
+                              
+            </div> <!-- end card body-->
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div> <!-- end row-->
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#semestre-select').change(function() {
+    
+            var classeId = $('#classe-select').val();
+            var anneeAcademiqueId = $('#annee-academique-select').val();
+            var semestreId = $('#semestre-select').val();
+
+            if (classeId && anneeAcademiqueId && semestreId) {
+                console.log(classeId)
+                $.ajax({
+                    url: '{% url "get-unites" %}',
+                    data: {
+                        'classe': classeId,
+                        'annee_academique': anneeAcademiqueId,
+                        'semestre': semestreId
+                    },
+                    success: function(unites) {
+                        console.log(data)
+                        var uniteSelect = $('#unite-select');
+                        uniteSelect.empty();
+                        uniteSelect.append('<option value="">Sélectionnez une unité</option>');
+                        unites.forEach(function(unite) {
+                            uniteSelect.append('<option value="' + unite[1] + '">' + unite[0] + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+
+        $('#unite-select').change(function() {
+            var uniteId = $(this).val();
+            var anneeAcademiqueId = $('#annee-academique-select').val();
+            var classeId = $('#classe-select').val();
+            var semestreId = $('#semestre-select').val();
+            if (uniteId) {
+                $.ajax({
+                    url: '{% url "get-matieres" %}',
+                    data: {
+                        'annee_id': anneeAcademiqueId,
+                        'classe_id': classeId,
+                        'semestre_id': semestreId,
+                        'unite_id': uniteId,
+                            },
+                    success: function(data) {
+                        var matiereSelect = $('#matiere-select');
+                        matiereSelect.empty();
+                        matiereSelect.append('<option value="">Sélectionnez une matière</option>');
+                        data.forEach(function(matiere) {
+                            matiereSelect.append('<option value="' + matiere[1] + '">' + matiere[0] + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 {% endblock %}
-

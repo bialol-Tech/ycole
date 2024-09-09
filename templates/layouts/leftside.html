@@ -87,9 +87,7 @@
                         <li>
                             <a href="{% url "liste-etudiant-inscrits" %}">Les étudiants inscrits</a>
                         </li>
-                        <li>
-                            <a href="{% url "exporter-releve-note-inscrit" %}">Exporter le relevés des inscrits</a>
-                        </li>
+                        
                         
                     </ul>
                 </div>
@@ -104,10 +102,10 @@
                 <div class="collapse" id="sidebarEmail">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="apps-email-inbox.html">Inbox</a>
+                            <a href="{% url "exporter-releve-note-inscrit" %}">Exporter le relevés des inscrits</a>
                         </li>
                         <li>
-                            <a href="apps-email-read.html">Read Email</a>
+                            <a href="{% url "importer-note" %}">Importer des notes</a>
                         </li>
                     </ul>
                 </div>
@@ -122,17 +120,9 @@
                 <div class="collapse" id="sidebarProjects">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="apps-projects-list.html">List</a>
+                            <a href="/vacations/gerer">Gérer</a>
                         </li>
-                        <li>
-                            <a href="apps-projects-details.html">Details</a>
-                        </li>
-                        <li>
-                            <a href="apps-projects-gantt.html">Gantt <span class="badge rounded-pill bg-light text-dark font-10 float-end">New</span></a>
-                        </li>
-                        <li>
-                            <a href="apps-projects-add.html">Create Project</a>
-                        </li>
+                       
                     </ul>
                 </div>
             </li>
