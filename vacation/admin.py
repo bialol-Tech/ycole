@@ -4,7 +4,7 @@ from vacation.models import Vacation, Grade,Enseignant
 
 @admin.register(Grade)
 class GradeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['libelle', 'prix_unitaire_horaire']
 
 
 # Register your models here.

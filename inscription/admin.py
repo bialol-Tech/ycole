@@ -10,7 +10,8 @@ class InscriptionAdmin(admin.ModelAdmin):
 
 @admin.register(Etudiant)
 class EtudiantAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['nom', 'prenom', 'date_de_naissance']
+    search_fields = [ 'nom']
 
 @admin.register(AnneeAcademique)
 class AnneeAcademiqueAdmin(admin.ModelAdmin):

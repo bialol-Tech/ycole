@@ -59,6 +59,8 @@ class Classe(models.Model):
 class Etudiant(models.Model):
 
     date_de_naissance = models.DateField()
+    lieu_de_naissance = models.CharField(max_length=20)
+    pays_de_naissance = models.CharField(max_length=20)
     nom = models.CharField(max_length=70)
     prenom = models.CharField(max_length=70)
     nationalite = models.CharField(max_length=70, null=True, blank=True)

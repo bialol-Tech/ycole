@@ -70,7 +70,7 @@
                                                 <td>{{etudiant.telephone_tuteur}}</td>
                                                 <td>{{etudiant.profession_tuteur}}</td>
                                                 <td>{{etudiant.email_tuteur}}</td>
-                                                <td><a href="/inscription/certificat-scolarite/" target="_blank" ><i class=" uil-file-download" style="font-size: 24px;"></i></a></td>
+                                                <td><a href="{% url 'certificat-scolarite' etudiant.id annee %}" target="_blank" ><i class=" uil-file-download" style="font-size: 24px;"></i></a></td>
                                                 <td>
                                                     <a href=""><i class="fa fa-pencil"></i></a>
                                                 </td>

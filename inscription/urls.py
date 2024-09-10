@@ -9,6 +9,6 @@ urlpatterns = [
 
     path('inscrire-etudiant/', inscrireEtudiant, name="inscrire-etudiant"),
     path('liste-etudiant-inscrits/', listeEtudiantsInscripts, name="liste-etudiant-inscrits"),
-    path('certificat-scolarite/', certificatScolarite, name="certificat-scolarite"),
+    path('certificat-scolarite/<int:etudiant_id>/<int:annee_id>/', certificatScolarite, name="certificat-scolarite"),
   
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

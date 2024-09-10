@@ -44,7 +44,60 @@
                     </div>
                     <br> 
                 </form>   
+                <br>
+                
                 {% if vacations %}
+                <div class="row"></div>
+                    <div class="col-12">
+                        <div class="card widget-inline">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="card rounded-0 shadow-none m-0">
+                                            <div class="card-body text-center">
+                                                <i class="ri-briefcase-line text-muted font-24"></i>
+                                                <h3><span style="color: red;">{{somme_total_vacation}}</span></h3>
+                                                <p class="text-muted font-15 mb-0">Somme Totale à payer</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="card rounded-0 shadow-none m-0 border-start border-light">
+                                            <div class="card-body text-center">
+                                                <i class="ri-list-check-2 text-muted font-24"></i>
+                                                <h3><span style="color: red;">{{nombre_heure_effectuees_total}}</span></h3>
+                                                <p class="text-muted font-15 mb-0">Nombre d'heure total effectué</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="card rounded-0 shadow-none m-0 border-start border-light">
+                                            <div class="card-body text-center">
+                                                <i class="ri-group-line text-muted font-24"></i>
+                                                <h3><span style="color: chartreuse;">{{nbre_cours_effectues}}</span></h3>
+                                                <p class="text-muted font-15 mb-0">Nbre de cours effectués</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-lg-3">
+                                        <div class="card rounded-0 shadow-none m-0 border-start border-light">
+                                            <div class="card-body text-center">
+                                                <i class="ri-line-chart-line text-muted font-24"></i>
+                                                <h3><span>93%</span> <i class="mdi mdi-arrow-up text-success"></i></h3>
+                                                <p class="text-muted font-15 mb-0">Productivity</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> <!-- end row -->
+                            </div>
+                        </div> <!-- end card-box-->
+                    </div> <!-- end col-->
+                </div>
+                <br>
                     <div class="tab-content">
                         <div class="tab-pane show active" id="state-saving-preview">
                             <table id="state-saving-datatable" class="table activate-select dt-responsive nowrap w-100">
@@ -56,6 +109,8 @@
                                         <th>TELEPHONE</th>                                     
                                         <th>EMAIL</th>  
                                         <th>HEURES EFFECTUEES</th>                                     
+                                        <th>PRIX HORAIRE</th>                                     
+                                        <th>MONTANT</th>                                     
                                         <th>SEMESTRE</th>                                     
                                         <th>MATIERE</th>                                     
                                         <th>DATE</th>                                     
@@ -71,7 +126,9 @@
                                             <td>{{ vacation.enseignant.grade}}</td>
                                             <td>{{vacation.enseignant.telephone}}</td>                                             
                                             <td>{{vacation.enseignant.email}}</td>                                             
-                                            <td>{{vacation.nbre_heure_effectue}}</td>                                             
+                                            <td>{{vacation.nbre_heure_effectue}} H</td>                                             
+                                            <td> <span> <strong style="color: blue;">{{vacation.enseignant.grade.prix_unitaire_horaire}} FCFA</strong> </span></td>                                             
+                                            <td> <span><strong style="color: red;">{{vacation.calculMontantVacation}} FCFA</strong></span>  </td>                                             
                                             <td>{{vacation.semestre.libelle}}</td>                                             
                                             <td>{{vacation.matiere}}</td>                                             
                                             <td>{{vacation.date}}</td>                                             
